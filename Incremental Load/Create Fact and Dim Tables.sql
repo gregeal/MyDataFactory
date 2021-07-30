@@ -1,3 +1,17 @@
+/*  Tables created
+	dim_customer --> customer can change address/city use SCD1 or SCD2 based on requirements
+	Dim_product_Cat_SubCat  -->attributes here will not change, use incremental data Integer(load
+	Dim_Store  -->attributes here will not change, use incremental data load
+	Fact_Transactions  -->use incremental data load (insert only) to capture new transactions
+	Use SCD Type1 when no history is need based on business requirement
+*/
+
+select * from [dbo].[dim_customer]
+select * from [dbo].[Dim_product_Cat_SubCat]
+select * from [dbo].[Dim_Store]
+select * from [dbo].[DimDate]
+select * from [dbo].[Fact_Transactions]
+
 
 create table dim_customer
 (
@@ -80,8 +94,10 @@ create table Fact_Transactions
 
 
 
+-- got date script from --https://gist.github.com/hbennet/31ac69af102fcb5c805c
+
 	DECLARE @StartDate DATETIME = '01/01/2009' --Starting value of Date Range
-DECLARE @EndDate DATETIME = '01/01/2021' --End Value of Date Range
+DECLARE @EndDate DATETIME = '01/01/2022' --End Value of Date Range
 
 --Temporary Variables To Hold the Values During Processing of Each Date of Year
 DECLARE
