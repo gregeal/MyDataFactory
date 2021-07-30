@@ -694,7 +694,9 @@
 															}
 														},
 														"datasetParameters": {
-															"source1": {},
+															"source1": {
+																"Stagingfilename": "demo"
+															},
 															"sink1": {}
 														}
 													},
