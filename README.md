@@ -4,4 +4,4 @@ Examples of pipelines include
 2. Incremental Load
 3. SCD Type1
 4. Fact_Transaction Load
-Finally, a master pipeline to execute/trigger all the various pipelines created
+5. Finally, a master pipeline to execute/trigger all the various pipelines created
