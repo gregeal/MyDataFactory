@@ -1,0 +1,17 @@
+{
+	"name": "FileServer1",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "FileServer",
+		"typeProperties": {
+			"host": "\\\\DESKTOP-HDGC41U\\Users\\grege\\Downloads\\Azure Data Factory Workshop - Real World Project & Use Cases\\Azure Data Factory Workshop\\03 Resources to download",
+			"userId": "grege",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiJhZGQwYzNiNS05ZWUxLTRjZTgtYmYzNC0wNTUwNGQzOTk0OWYiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "Selfhosted-IR",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

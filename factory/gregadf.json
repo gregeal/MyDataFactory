@@ -1,0 +1,9 @@
+{
+	"name": "gregadf",
+	"location": "canadaeast",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "0c179c4e-0302-4ae2-9a5c-08eb161bb5f4",
+		"tenantId": "e6092de0-99d9-4309-b51e-d497906a7662"
+	}
+}
