@@ -81,6 +81,173 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/AzureSqlDimDate')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureSqlDatabaseConfigTableLinkedService",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "DateKey",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "Date",
+						"type": "date"
+					},
+					{
+						"name": "FullDateUK",
+						"type": "char"
+					},
+					{
+						"name": "FullDateUSA",
+						"type": "char"
+					},
+					{
+						"name": "DayOfMonth",
+						"type": "varchar"
+					},
+					{
+						"name": "DaySuffix",
+						"type": "varchar"
+					},
+					{
+						"name": "DayName",
+						"type": "varchar"
+					},
+					{
+						"name": "DayOfWeekUSA",
+						"type": "char"
+					},
+					{
+						"name": "DayOfWeekUK",
+						"type": "char"
+					},
+					{
+						"name": "DayOfWeekInMonth",
+						"type": "varchar"
+					},
+					{
+						"name": "DayOfWeekInYear",
+						"type": "varchar"
+					},
+					{
+						"name": "DayOfQuarter",
+						"type": "varchar"
+					},
+					{
+						"name": "DayOfYear",
+						"type": "varchar"
+					},
+					{
+						"name": "WeekOfMonth",
+						"type": "varchar"
+					},
+					{
+						"name": "WeekOfQuarter",
+						"type": "varchar"
+					},
+					{
+						"name": "WeekOfYear",
+						"type": "varchar"
+					},
+					{
+						"name": "Month",
+						"type": "varchar"
+					},
+					{
+						"name": "MonthName",
+						"type": "varchar"
+					},
+					{
+						"name": "MonthOfQuarter",
+						"type": "varchar"
+					},
+					{
+						"name": "Quarter",
+						"type": "char"
+					},
+					{
+						"name": "QuarterName",
+						"type": "varchar"
+					},
+					{
+						"name": "Year",
+						"type": "char"
+					},
+					{
+						"name": "YearName",
+						"type": "char"
+					},
+					{
+						"name": "MonthYear",
+						"type": "char"
+					},
+					{
+						"name": "MMYYYY",
+						"type": "char"
+					},
+					{
+						"name": "FirstDayOfMonth",
+						"type": "date"
+					},
+					{
+						"name": "LastDayOfMonth",
+						"type": "date"
+					},
+					{
+						"name": "FirstDayOfQuarter",
+						"type": "date"
+					},
+					{
+						"name": "LastDayOfQuarter",
+						"type": "date"
+					},
+					{
+						"name": "FirstDayOfYear",
+						"type": "date"
+					},
+					{
+						"name": "LastDayOfYear",
+						"type": "date"
+					},
+					{
+						"name": "IsHolidayUSA",
+						"type": "bit"
+					},
+					{
+						"name": "IsWeekday",
+						"type": "bit"
+					},
+					{
+						"name": "HolidayUSA",
+						"type": "varchar"
+					},
+					{
+						"name": "IsHolidayUK",
+						"type": "bit"
+					},
+					{
+						"name": "HolidayUK",
+						"type": "varchar"
+					}
+				],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "DimDate"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabaseConfigTableLinkedService')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/AzureSqlTable1')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -311,6 +478,73 @@
 				"typeProperties": {
 					"schema": "dbo",
 					"table": "Dim_Store"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabaseConfigTableLinkedService')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureSqlTableFact_Transaction')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureSqlDatabaseConfigTableLinkedService",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "Fact_Tran_Key",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "customer_key",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "Prod_Cat_SubCat_Key",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "Store_Key",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "tran_date",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "Quantity",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "rate",
+						"type": "float",
+						"precision": 15
+					},
+					{
+						"name": "tax",
+						"type": "float",
+						"precision": 15
+					},
+					{
+						"name": "total_amount",
+						"type": "float",
+						"precision": 15
+					}
+				],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "Fact_Transactions"
 				}
 			},
 			"dependsOn": [
@@ -753,94 +987,6 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/FileServer1')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/SqlServerTable1')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "SqlServerLinkedService",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "SqlServerTable",
-				"schema": [],
-				"typeProperties": {
-					"schema": "dbo",
-					"table": "Customer"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/SqlServerLinkedService')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/SqlServerTable2')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "SqlServerLinkedService",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "SqlServerTable",
-				"schema": [
-					{
-						"name": "transaction_id",
-						"type": "bigint",
-						"precision": 19
-					},
-					{
-						"name": "cust_id",
-						"type": "int",
-						"precision": 10
-					},
-					{
-						"name": "tran_date",
-						"type": "nvarchar"
-					},
-					{
-						"name": "prod_subcat_code",
-						"type": "nvarchar"
-					},
-					{
-						"name": "prod_cat_code",
-						"type": "nvarchar"
-					},
-					{
-						"name": "Qty",
-						"type": "nvarchar"
-					},
-					{
-						"name": "Rate",
-						"type": "int",
-						"precision": 10
-					},
-					{
-						"name": "Tax",
-						"type": "float",
-						"precision": 15
-					},
-					{
-						"name": "total_amt",
-						"type": "float",
-						"precision": 15
-					},
-					{
-						"name": "Store_type",
-						"type": "nvarchar"
-					}
-				],
-				"typeProperties": {
-					"schema": "dbo",
-					"table": "Transactions"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/SqlServerLinkedService')]"
 			]
 		}
 	]

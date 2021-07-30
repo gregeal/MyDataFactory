@@ -13,6 +13,165 @@
 	},
 	"resources": [
 		{
+			"name": "[concat(parameters('factoryName'), '/SqlServerTable1')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "SqlServerLinkedService",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "SqlServerTable",
+				"schema": [],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "Customer"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SqlServerTable2')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "SqlServerLinkedService",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "SqlServerTable",
+				"schema": [
+					{
+						"name": "transaction_id",
+						"type": "bigint",
+						"precision": 19
+					},
+					{
+						"name": "cust_id",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "tran_date",
+						"type": "nvarchar"
+					},
+					{
+						"name": "prod_subcat_code",
+						"type": "nvarchar"
+					},
+					{
+						"name": "prod_cat_code",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Qty",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Rate",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "Tax",
+						"type": "float",
+						"precision": 15
+					},
+					{
+						"name": "total_amt",
+						"type": "float",
+						"precision": 15
+					},
+					{
+						"name": "Store_type",
+						"type": "nvarchar"
+					}
+				],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "Transactions"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/FactDataflow')]",
+			"type": "Microsoft.DataFactory/factories/dataflows",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"dataset": {
+								"referenceName": "StoreDatasetFromTransactionFactTable",
+								"type": "DatasetReference"
+							},
+							"name": "StagingDataLake"
+						},
+						{
+							"dataset": {
+								"referenceName": "AzureSqlTable2",
+								"type": "DatasetReference"
+							},
+							"name": "DimCustomer"
+						},
+						{
+							"dataset": {
+								"referenceName": "AzureSqlTable3",
+								"type": "DatasetReference"
+							},
+							"name": "DimProdCat"
+						},
+						{
+							"dataset": {
+								"referenceName": "AzureSqlTableDimStore",
+								"type": "DatasetReference"
+							},
+							"name": "DimStore"
+						},
+						{
+							"dataset": {
+								"referenceName": "AzureSqlDimDate",
+								"type": "DatasetReference"
+							},
+							"name": "DimDate"
+						}
+					],
+					"sinks": [
+						{
+							"dataset": {
+								"referenceName": "AzureSqlTableFact_Transaction",
+								"type": "DatasetReference"
+							},
+							"name": "sink1"
+						}
+					],
+					"transformations": [
+						{
+							"name": "JoinDimCustomer"
+						},
+						{
+							"name": "JoinDimProdCat"
+						},
+						{
+							"name": "JoinDimStore"
+						},
+						{
+							"name": "JoinDimDate"
+						},
+						{
+							"name": "DerivedColumn1"
+						}
+					],
+					"script": "source(output(\n\t\ttransaction_id as string,\n\t\tcust_id as string,\n\t\ttran_date as string,\n\t\tprod_subcat_code as string,\n\t\tprod_cat_code as string,\n\t\tQty as string,\n\t\tRate as string,\n\t\tTax as string,\n\t\ttotal_amt as string,\n\t\tStore_type as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> StagingDataLake\nsource(output(\n\t\tcustomer_key as integer,\n\t\tcustomer_Id as integer,\n\t\tcustomer_name as string,\n\t\tDOB as string,\n\t\tcity_code as string,\n\t\tgender as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> DimCustomer\nsource(output(\n\t\tProd_Cat_SubCat_Key as integer,\n\t\tProduct_Cat_Code as integer,\n\t\tProduct_Category as string,\n\t\tProduct_SubCat_Code as integer,\n\t\tProduct_SubCategory as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> DimProdCat\nsource(output(\n\t\tStore_Key as integer,\n\t\tStore_Type as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> DimStore\nsource(output(\n\t\tDateKey as integer,\n\t\tDate as date,\n\t\tFullDateUK as string,\n\t\tFullDateUSA as string,\n\t\tDayOfMonth as string,\n\t\tDaySuffix as string,\n\t\tDayName as string,\n\t\tDayOfWeekUSA as string,\n\t\tDayOfWeekUK as string,\n\t\tDayOfWeekInMonth as string,\n\t\tDayOfWeekInYear as string,\n\t\tDayOfQuarter as string,\n\t\tDayOfYear as string,\n\t\tWeekOfMonth as string,\n\t\tWeekOfQuarter as string,\n\t\tWeekOfYear as string,\n\t\tMonth as string,\n\t\tMonthName as string,\n\t\tMonthOfQuarter as string,\n\t\tQuarter as string,\n\t\tQuarterName as string,\n\t\tYear as string,\n\t\tYearName as string,\n\t\tMonthYear as string,\n\t\tMMYYYY as string,\n\t\tFirstDayOfMonth as date,\n\t\tLastDayOfMonth as date,\n\t\tFirstDayOfQuarter as date,\n\t\tLastDayOfQuarter as date,\n\t\tFirstDayOfYear as date,\n\t\tLastDayOfYear as date,\n\t\tIsHolidayUSA as boolean,\n\t\tIsWeekday as boolean,\n\t\tHolidayUSA as string,\n\t\tIsHolidayUK as boolean,\n\t\tHolidayUK as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> DimDate\nStagingDataLake, DimCustomer join(toInteger(cust_id) == customer_Id,\n\tjoinType:'left',\n\tbroadcast: 'auto')~> JoinDimCustomer\nJoinDimCustomer, DimProdCat join(toInteger(prod_cat_code) == Product_Cat_Code\n\t&& toInteger(prod_subcat_code) == Product_SubCat_Code,\n\tjoinType:'left',\n\tbroadcast: 'auto')~> JoinDimProdCat\nJoinDimProdCat, DimStore join(StagingDataLake@Store_type == DimStore@Store_Type,\n\tjoinType:'left',\n\tbroadcast: 'auto')~> JoinDimStore\nJoinDimStore, DimDate join(toDate(tran_date, 'dd-MM-yyyy') == Date,\n\tjoinType:'left',\n\tbroadcast: 'auto')~> JoinDimDate\nJoinDimDate derive(quantity_int = toInteger(Qty),\n\t\trate_float = toFloat(Rate),\n\t\ttax_float = toFloat(Tax),\n\t\ttotal_amt_float = toFloat(total_amt)) ~> DerivedColumn1\nDerivedColumn1 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tinput(\n\t\tFact_Tran_Key as integer,\n\t\tcustomer_key as integer,\n\t\tProd_Cat_SubCat_Key as integer,\n\t\tStore_Key as integer,\n\t\ttran_date as integer,\n\t\tQuantity as integer,\n\t\trate as double,\n\t\ttax as double,\n\t\ttotal_amount as double\n\t),\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tformat: 'table',\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\terrorHandlingOption: 'stopOnFirstError',\n\tmapColumn(\n\t\tcustomer_key,\n\t\tProd_Cat_SubCat_Key,\n\t\tStore_Key,\n\t\ttran_date = DateKey,\n\t\tQuantity = quantity_int,\n\t\trate = rate_float,\n\t\ttax = tax_float,\n\t\ttotal_amount = total_amt_float\n\t)) ~> sink1"
+				}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/dataflow1')]",
 			"type": "Microsoft.DataFactory/factories/dataflows",
 			"apiVersion": "2018-06-01",
@@ -699,7 +858,55 @@
 				"lastPublishTime": "2021-07-29T21:40:24Z"
 			},
 			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/SqlServerTable1')]",
 				"[concat(variables('factoryId'), '/dataflows/dataflow1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Fact IncrementalLoad')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Fact Transactions",
+						"type": "ExecuteDataFlow",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "1.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataflow": {
+								"referenceName": "FactDataflow",
+								"type": "DataFlowReference",
+								"parameters": {},
+								"datasetParameters": {
+									"StagingDataLake": {},
+									"DimCustomer": {},
+									"DimProdCat": {},
+									"DimStore": {},
+									"DimDate": {},
+									"sink1": {}
+								}
+							},
+							"staging": {},
+							"compute": {
+								"coreCount": 8,
+								"computeType": "General"
+							},
+							"traceLevel": "Fine"
+						}
+					}
+				],
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/dataflows/FactDataflow')]"
 			]
 		},
 		{
@@ -894,7 +1101,10 @@
 				"annotations": [],
 				"lastPublishTime": "2021-07-28T13:07:09Z"
 			},
-			"dependsOn": []
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/SqlServerTable1')]",
+				"[concat(variables('factoryId'), '/datasets/SqlServerTable2')]"
+			]
 		}
 	]
 }
