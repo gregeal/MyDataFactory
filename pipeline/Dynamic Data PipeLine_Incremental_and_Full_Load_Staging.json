@@ -293,6 +293,11 @@
 														"value": "'@{item().Watermark_Column}'",
 														"type": "Expression"
 													}
+												},
+												"datasetParameters": {
+													"source1": {
+														"Stagingfilename": "demo"
+													}
 												}
 											},
 											"compute": {
