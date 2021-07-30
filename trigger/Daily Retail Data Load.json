@@ -1,0 +1,24 @@
+{
+	"name": "Daily Retail Data Load",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "MasterPipelineToOrchestrateAllPipelines",
+					"type": "PipelineReference"
+				}
+			}
+		],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Day",
+				"interval": 1,
+				"startTime": "2021-07-30T23:20:00Z",
+				"timeZone": "UTC"
+			}
+		}
+	}
+}

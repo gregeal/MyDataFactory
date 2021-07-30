@@ -1,0 +1,74 @@
+{
+	"name": "MasterPipelineToOrchestrateAllPipelines",
+	"properties": {
+		"activities": [
+			{
+				"name": "Execute DimStore",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "Execute DimProdCat",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "DimStore IncrementalLoad",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			},
+			{
+				"name": "Execute DimProdCat",
+				"type": "ExecutePipeline",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "DimProdCat IncrementalLoad",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			},
+			{
+				"name": "Execute StagingPipeline",
+				"type": "ExecutePipeline",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "Dynamic Data PipeLine_Incremental_and_Full_Load_Staging",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			},
+			{
+				"name": "Execute Fact",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "Execute DimStore",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "Fact IncrementalLoad",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			}
+		],
+		"annotations": []
+	}
+}
