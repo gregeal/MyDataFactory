@@ -1,0 +1,22 @@
+{
+    "now": "2021-07-27T14:03:32.424Z",
+    "perfNow": 4921537,
+    "diagnosticCorrelation": "6f2835fc-7fd8-4c1d-a5f0-fcedf7e484b4",
+    "source": "DownloadSupportFiles",
+    "environment": {
+        "productName": "adf",
+        "buildVersion": "1.0.20210726.12",
+        "environmentType": 3,
+        "resourceName": "gregadf",
+        "resourceRegion": "canadaeast",
+        "resourceGroup": "rg-greg",
+        "subscriptionId": "5fa20ee9-133f-487d-b5a5-779b79d8f77c",
+        "sessionId": "Gq+Lz",
+        "operationId": "+Daeh",
+        "gitType": "live"
+    },
+    "additionalInfo": {
+        "selectedResource": "CopyActivity1",
+        "selectedResourceType": "pipeline"
+    }
+}

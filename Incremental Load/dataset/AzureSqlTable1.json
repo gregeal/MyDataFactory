@@ -1,0 +1,60 @@
+{
+    "name": "AzureSqlTable1",
+    "properties": {
+        "linkedServiceName": {
+            "referenceName": "AzureSqlDatabaseConfigTableLinkedService",
+            "type": "LinkedServiceReference"
+        },
+        "annotations": [],
+        "type": "AzureSqlTable",
+        "schema": [
+            {
+                "name": "Source",
+                "type": "varchar"
+            },
+            {
+                "name": "Source_Table",
+                "type": "varchar"
+            },
+            {
+                "name": "Dest_Table",
+                "type": "varchar"
+            },
+            {
+                "name": "Columns",
+                "type": "varchar"
+            },
+            {
+                "name": "Watermark_Column",
+                "type": "varchar"
+            },
+            {
+                "name": "Watermark_Value",
+                "type": "datetime",
+                "precision": 23,
+                "scale": 3
+            },
+            {
+                "name": "Enabled",
+                "type": "int",
+                "precision": 10
+            },
+            {
+                "name": "Load_Flag",
+                "type": "varchar"
+            },
+            {
+                "name": "Status",
+                "type": "varchar"
+            },
+            {
+                "name": "Comment",
+                "type": "varchar"
+            }
+        ],
+        "typeProperties": {
+            "schema": "dbo",
+            "table": "config"
+        }
+    }
+}

@@ -1,0 +1,6 @@
+selected resource name:		CopyActivity1
+selected resource type:		pipeline
+factory name:			gregadf
+factory location:		canadaeast
+subscription id:		5fa20ee9-133f-487d-b5a5-779b79d8f77c
+time of download (UTC):		Tue, 27 Jul 2021 14:03:32 GMT

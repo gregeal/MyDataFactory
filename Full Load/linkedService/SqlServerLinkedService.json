@@ -1,0 +1,16 @@
+{
+    "name": "SqlServerLinkedService",
+    "type": "Microsoft.DataFactory/factories/linkedservices",
+    "properties": {
+        "annotations": [],
+        "type": "SqlServer",
+        "typeProperties": {
+            "connectionString": "integrated security=False;data source=52.235.24.26;initial catalog=SourceDB;user id=greg",
+            "encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiJkOWViZGQyMC1lNWI3LTQzYmUtYTI3OC0xYmNjNzU0ZWVkYmUiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+        },
+        "connectVia": {
+            "referenceName": "Selfhosted-IR",
+            "type": "IntegrationRuntimeReference"
+        }
+    }
+}

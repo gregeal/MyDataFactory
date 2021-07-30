@@ -1,0 +1,62 @@
+{
+    "name": "SqlServerTable2",
+    "properties": {
+        "linkedServiceName": {
+            "referenceName": "SqlServerLinkedService",
+            "type": "LinkedServiceReference"
+        },
+        "annotations": [],
+        "type": "SqlServerTable",
+        "schema": [
+            {
+                "name": "transaction_id",
+                "type": "bigint",
+                "precision": 19
+            },
+            {
+                "name": "cust_id",
+                "type": "int",
+                "precision": 10
+            },
+            {
+                "name": "tran_date",
+                "type": "nvarchar"
+            },
+            {
+                "name": "prod_subcat_code",
+                "type": "nvarchar"
+            },
+            {
+                "name": "prod_cat_code",
+                "type": "nvarchar"
+            },
+            {
+                "name": "Qty",
+                "type": "nvarchar"
+            },
+            {
+                "name": "Rate",
+                "type": "int",
+                "precision": 10
+            },
+            {
+                "name": "Tax",
+                "type": "float",
+                "precision": 15
+            },
+            {
+                "name": "total_amt",
+                "type": "float",
+                "precision": 15
+            },
+            {
+                "name": "Store_type",
+                "type": "nvarchar"
+            }
+        ],
+        "typeProperties": {
+            "schema": "dbo",
+            "table": "Transactions"
+        }
+    }
+}

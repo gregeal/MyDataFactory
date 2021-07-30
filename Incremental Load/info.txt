@@ -1,0 +1,7 @@
+selected resource name:		Dynamic Data PipeLine_Incremental_and_Full_Load
+selected resource type:		pipeline
+factory name:			gregadf
+factory location:		canadaeast
+subscription id:		5fa20ee9-133f-487d-b5a5-779b79d8f77c
+data flow session id:		65bfd51e-7303-4531-9acd-43e95e69e7fc
+time of download (UTC):		Thu, 29 Jul 2021 19:41:52 GMT

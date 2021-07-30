@@ -1,0 +1,6 @@
+selected resource name:		DimProdCat IncrementalLoad
+selected resource type:		pipeline
+factory name:			gregadf
+factory location:		canadaeast
+subscription id:		5fa20ee9-133f-487d-b5a5-779b79d8f77c
+time of download (UTC):		Thu, 29 Jul 2021 22:49:13 GMT
